@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--<a href="/categories" th:text="#{index.categories.page}"></a><br>-->
+<a href="/teacher/question">Queastion Page</a>
+<a href="/user/register" th:if="${user==null}">Register</a>
+<a href="/customLogin" th:if="${user==null}">Login</a>
+</body>
+</html>
