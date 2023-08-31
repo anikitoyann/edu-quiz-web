@@ -6,15 +6,18 @@
 <body>
 <h2>Create Question</h2>
 <form action="/teacher/question" method="post">
- Title <input type="text" name="title" >
+ Title <input type="text" name="title" required><br>
+    <select name="type">
+        <option value="">Select Type</option>
+        <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+    </select>
+    Score <input type="number" name="score">
+    Quiz <select name="quiz.id"required>
+    <option th:each="quize:${quiz}" th:text="${quize.title}"th:value="${quize.id}"></option>
 
-  <select name="type">
-    <option value="">Multiple Choice</option>
-    <option value="SINGLE_SELECT">Single Choice</option>
-  </select>
-  <input type="number" name="score">
-
-  <button type="submit">Create Question</button>
+</select>
+    <button type="submit">Create Question</button>
 </form>
+
 </body>
 </html>
