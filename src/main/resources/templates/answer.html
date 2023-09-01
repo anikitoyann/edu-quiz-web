@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Answer</title>
+</head>
+
+<body>
+<table border="1px">
+  <a href="/answer/add"> Created new Answer</a>
+
+  <tr>
+    <th>id</th>
+    <th>createdDateTime</th>
+    <t>action</t>
+  </tr>
+  <tr th:each="answer:${answers}">
+    <td th:text="${answer.id}"></td>
+    <td th:text="${answer.dateTime}"></td>
+    <td><a th:href="@{/answer/remove(id=${answer.id})}">Remove</a></td>
+
+
+  </tr>
+</table>
+  <a href="/">Back</a>
+</body>
+</html>

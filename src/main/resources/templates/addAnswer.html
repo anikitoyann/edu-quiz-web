@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/answer/add" method="post">
+   <input type="datetime-local" name="DateTime">
+    <select name="question.id">
+        <option th:each="question : ${questions}"
+                th:text="${question.title}" th:value="${question.id}"></option>
+    </select><br>
+    <select name="questionOption.id">
+        <option th:each="questionOption : ${questionOption}"
+                th:text="${questionOption.title}" th:value="${questionOption.id}"></option>
+    </select><br>
+    <input type="submit" value="create">
+</form>
+</body>
+</html>

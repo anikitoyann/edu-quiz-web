@@ -10,11 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,6 +55,38 @@ public class QuizController {
             return "redirect:/quiz";
         }
     }
+    @GetMapping("/remove")
+    public String removeQuiz(@RequestParam("id") int id) {
+        quizService.deleteById(id);
+        return "redirect:/quiz";
+    }
+    @GetMapping("/add")
+    public  String addQuiz(){
+        return "addQuiz";
+    }
+    @PostMapping("/add")
+    public String addQuiz(@ModelAttribute Quiz quiz) {
+        quizService.save(quiz);
+        return "redirect:/quiz";
+    }
+    @GetMapping("/updateQuiz")
+    public String updateQuizPage() {
+        return "updateQuiz";
+    }
+
+    @PostMapping("/updateQuiz")
+    public String updateQuiz(@RequestParam("id") int id,
+                            @ModelAttribute  Quiz quiz) {
+        Optional<Quiz> byId = quizService.findById(id);
+        if (!byId.isEmpty()) {
+            Quiz updateQuiz = quizService.updateQuiz(quiz, byId);
+            quizService.save(updateQuiz);
+
+            return "redirect:/quiz";
+        }
+        return "redirect:/quiz";
+    }
+
 }
 
 

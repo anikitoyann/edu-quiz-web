@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/option" method="post">
+  <input type="text"name="title">
+    <select name="question.id">
+        <option th:each="question : ${question}"
+                th:text="${question.title}" th:value="${question.id}"></option>
+    </select><br>
+    <input type="checkbox" name="isCorrect" value="true">
+  <input type="submit"value="create">
+</form>
+</body>
+</html>

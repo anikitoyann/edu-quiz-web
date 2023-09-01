@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Question Options</title>
+</head>
+<body>
+<h1>Question Options</h1>
+
+<table>
+    <tr>
+        <th>Option Title</th>
+        <th>Is Correct</th>
+    </tr>
+    <tr th:each="option : ${options}">
+        <td th:text="${option.title}">Option Title</td>
+        <td>
+            <span th:if="${option.isCorrect()}">isCorrect</span>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

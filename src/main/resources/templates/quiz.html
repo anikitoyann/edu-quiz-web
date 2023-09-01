@@ -7,15 +7,20 @@
 
 <body>
 <table border="1px">
+    <a href="/quiz/add"> Created new Quiz</a>
+
     <tr>
         <th>id</th>
         <th>title</th>
         <th>createdDateTime</th>
+        <th>action</th>
     </tr>
 <tr th:each="quiz:${quizes}">
     <td th:text="${quiz.id}"></td>
     <td><a th:href="@{/quiz/{quizId} (quizId=${quiz.id})}"><span th:text="${quiz.title}"></span></a></td>
     <td th:text="${quiz.createdDateTime}"></td>
+    <td><a th:href="@{/quiz/remove(id=${quiz.id})}">Remove</a></td>
+
 </tr>
 </table>
 <div class="pagination">
