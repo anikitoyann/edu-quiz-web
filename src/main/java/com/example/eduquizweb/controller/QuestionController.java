@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/teacher/question")
+@RequestMapping("/question")
 public class QuestionController {
 
     private final QuestionService questionService;
@@ -29,15 +29,16 @@ public class QuestionController {
         return "question_creation";
     }
 
+
     @PostMapping()
     public String createQuestion(@ModelAttribute Question question) {
         questionService.save(question);
-        return "redirect:/teacher/question";
+        return "redirect:/question";
     }
     @GetMapping("/remove")
     public String removeQuestion(@RequestParam("id") int id) {
         questionService.deleteById(id);
-        return "redirect:/teacher/question";
+        return "redirect:/question";
     }
 
 }

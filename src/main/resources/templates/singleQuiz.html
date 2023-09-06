@@ -1,11 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Question</title>
+    <title>Single Quiz Page</title>
 </head>
 <body>
-<span th:each="question:${question}" th:text="question.title"></span>
-
+<h1>Quiz Details</h1>
+<h2 th:text="${quiz.title}"></h2>
+<p th:text="${quiz.createdDateTime}"></p>
+<form action="/answer/submitQuiz" method="post">
+    <h2>Questions:</h2>
+    <ul>
+        <li th:each="entry : ${questionOptionsMap}">
+            <p th:text="${entry.key.title}"></p>
+            <ul>
+                <li th:each="option : ${entry.value}">
+                    <label>
+                        <input type="checkbox"  th:name="'answers[' + ${entry.key.id} + '].questionOption.id'" th:value="${option.id}" />
+                    </label>
+                  <!--  <label>
+                        <input type="radio" th:if="${entry.key.type.SINGLE_SELECT}" th:name="'answers[' + ${entry.key.id} + '].questionOption.id'" th:value="${option.id}" />
+                    </label>-->
+                    <span th:text="${option.title}"></span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <input type="submit" value="Submit Quiz" />
+</form>
+<a th:href="@{/quiz}">Back to Quiz List</a>
 </body>
 </html>

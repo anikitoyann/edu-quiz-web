@@ -36,12 +36,8 @@ public class UserController {
             user.setPassword(encodedPassword);
             user.setUserType(UserType.STUDENT);
             userService.save(user);
-            log.info("User registered successfully with email: {}", user.getEmail());
         }
         return "redirect:/";
     }
-    @GetMapping("/teacher")
-    public String teacherPage() {
-        return "teacher";
-    }
+
 }

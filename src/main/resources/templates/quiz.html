@@ -17,8 +17,8 @@
     </tr>
 <tr th:each="quiz:${quizes}">
     <td th:text="${quiz.id}"></td>
-    <td><a th:href="@{/quiz/{quizId} (quizId=${quiz.id})}"><span th:text="${quiz.title}"></span></a></td>
-    <td th:text="${quiz.createdDateTime}"></td>
+    <td><a th:href="@{/quiz/{quizId}(quizId=${quiz.id})}"><span th:text="${quiz.title}"></span></a></td>
+    <td th:text="${quiz.createdDateTime} "></td>
     <td><a th:href="@{/quiz/remove(id=${quiz.id})}">Remove</a></td>
 
 </tr>

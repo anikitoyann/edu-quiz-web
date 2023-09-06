@@ -1,5 +1,5 @@
 package com.example.eduquizweb.controller;
-
+import com.example.eduquizcommon.entity.Question;
 import com.example.eduquizcommon.entity.QuestionOption;
 import com.example.eduquizcommon.service.QuestionOptionService;
 import com.example.eduquizcommon.service.QuestionService;
@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/option")
@@ -24,18 +22,18 @@ public class QuestionOptionController {
         return "createOption";
     }
 
-    @PostMapping("")
-    public String createOption(@ModelAttribute QuestionOption questionOption) {
-        questionOptionService.save(questionOption);
-        return "redirect:/option";
+    @PostMapping()
+    public String createOption(@ModelAttribute QuestionOption questionOption, @RequestParam("question.id") int questionId, @RequestParam("isCorrect") boolean isCorrect) {
+        Question question = questionService.findById(questionId).orElse(null);
+        if (question != null) {
+            questionOption.setQuestion(question);
+            questionOption.setCorrect(isCorrect);
+            questionOptionService.save(questionOption);
+
+            return "redirect:/option";
+        } else {
+            return "redirect:/error";
+        }
     }
 
-
-    //konkret harci tarberakner@ ditel
-    @GetMapping("/view/{questionId}")
-    public String viewOptions(@PathVariable("questionId") int questionId, Model model) {
-        List<QuestionOption> options = questionOptionService.getQuestionOptionByQuestionId(questionId);
-        model.addAttribute("options", options);
-        return "viewOptions";
-    }
     }

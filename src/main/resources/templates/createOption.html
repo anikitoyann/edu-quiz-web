@@ -6,13 +6,22 @@
 </head>
 <body>
 <form action="/option" method="post">
-  <input type="text"name="title">
-    <select name="question.id">
-        <option th:each="question : ${question}"
-                th:text="${question.title}" th:value="${question.id}"></option>
-    </select><br>
-    <input type="checkbox" name="isCorrect" value="true">
-  <input type="submit"value="create">
+    <input type="hidden" name="questionId" value="123">
+    <label>
+        <input type="text"name="title">
+    </label>
+    <label>
+        <select name="question.id">
+            <option th:each="question : ${question}"
+                    th:text="${question.title}" th:value="${question.id}"></option>
+        </select>
+    </label><br>
+    <label>
+        <input type="checkbox" name="isCorrect" value="true">
+    </label>True<br>
+    <input type="hidden" name="isCorrect" value="false">
+  <input type="submit" value="create">
 </form>
+<a href="/">Back</a>
 </body>
 </html>

@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-
 @Configuration
 @RequiredArgsConstructor
 public class SpringSecurityConfig {
@@ -24,12 +22,12 @@ public class SpringSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET,"/").permitAll()
+                .requestMatchers(HttpMethod.GET, "/").permitAll()
                 .requestMatchers("/user/register").permitAll()
-                .requestMatchers("/quiz/**").permitAll()
-                .requestMatchers("/teacher/question").permitAll()
-               // .requestMatchers("/categories/**").hasAnyAuthority("ADMIN", "USER")
-              //  .requestMatchers("/user/admin").hasAuthority("ADMIN")
+                .requestMatchers("/quiz").permitAll()
+                .requestMatchers("/question/**").permitAll()
+                .requestMatchers("/option/**").permitAll()
+                .requestMatchers("/quiz/add").hasAnyAuthority("TEACHER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

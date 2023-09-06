@@ -1,6 +1,7 @@
 package com.example.eduquizweb.controller;
 
-import com.example.eduquizcommon.entity.Quiz;
+import com.example.eduquizcommon.entity.*;
+import com.example.eduquizcommon.service.QuestionOptionService;
 import com.example.eduquizcommon.service.QuestionService;
 import com.example.eduquizcommon.service.QuizService;
 import lombok.RequiredArgsConstructor;
@@ -9,10 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -22,6 +24,7 @@ import java.util.stream.IntStream;
 public class QuizController {
     private final QuizService quizService;
     private final QuestionService questionService;
+    private  final QuestionOptionService questionOptionService;
 
     @GetMapping()
     public String quizPageList(@RequestParam("page") Optional<Integer> page,
@@ -39,6 +42,7 @@ public class QuizController {
                     .collect(Collectors.toList());
             modelMap.addAttribute("pageNumbers", pageNumbers);
         }
+        modelMap.addAttribute("question",questionService.findAll());
         modelMap.addAttribute("quizes", all);
         return "quiz";
     }
@@ -49,12 +53,34 @@ public class QuizController {
         if (byId.isPresent()) {
             Quiz quiz = byId.get();
             modelMap.addAttribute("quiz", quiz);
-            modelMap.addAttribute("question", questionService.findAllByQuiz_id(quizId));
+            List<Question>questions=questionService.findAllQuestionByQuiz_id(quizId);
+            modelMap.addAttribute("questions", questions);
+            Map<Integer, Answer> answers = new HashMap<>();
+            for (Question question : questions) {
+                Answer answer = new Answer();
+                answer.setQuestion(question);
+                answers.put(question.getId(), answer);
+            }
+            modelMap.addAttribute("answers", answers);
+            Map<Question, List<QuestionOption>> questionOptionsMap = new HashMap<>();
+            for (Question question : questions) {
+                List<QuestionOption> options = questionOptionService.getAllQuestionOptionByQuestionId(question.getId());
+                questionOptionsMap.put(question, options);
+            }
+            modelMap.addAttribute("questionOptionsMap", questionOptionsMap);
             return "singleQuiz";
         } else {
             return "redirect:/quiz";
         }
     }
+
+    @GetMapping("/view/{questionId}")
+    public String viewOptions(@PathVariable("questionId") int questionId, Model model) {
+        List<QuestionOption> options = questionOptionService.getAllQuestionOptionByQuestionId(questionId);
+        model.addAttribute("options", options);
+        return "viewOptions";
+    }
+
     @GetMapping("/remove")
     public String removeQuiz(@RequestParam("id") int id) {
         quizService.deleteById(id);
@@ -78,18 +104,11 @@ public class QuizController {
     public String updateQuiz(@RequestParam("id") int id,
                             @ModelAttribute  Quiz quiz) {
         Optional<Quiz> byId = quizService.findById(id);
-        if (!byId.isEmpty()) {
+        if (byId.isPresent()) {
             Quiz updateQuiz = quizService.updateQuiz(quiz, byId);
             quizService.save(updateQuiz);
-
             return "redirect:/quiz";
         }
         return "redirect:/quiz";
     }
-
 }
-
-
-
-
-

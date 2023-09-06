@@ -25,7 +25,7 @@ public class MainController {
         if (currentUser != null) {
             User user = currentUser.getUser();
             if(user.getUserType() == UserType.TEACHER){
-                return "redirect:/user/teacher";
+                return "redirect:/";
             }else if(user.getUserType() == UserType.STUDENT){
                 return "redirect:/";
             }
