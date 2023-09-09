@@ -15,11 +15,8 @@
             <ul>
                 <li th:each="option : ${entry.value}">
                     <label>
-                        <input type="checkbox"  th:name="'answers[' + ${entry.key.id} + '].questionOption.id'" th:value="${option.id}" />
-                    </label>
-                  <!--  <label>
                         <input type="radio" th:if="${entry.key.type.SINGLE_SELECT}" th:name="'answers[' + ${entry.key.id} + '].questionOption.id'" th:value="${option.id}" />
-                    </label>-->
+                    </label>
                     <span th:text="${option.title}"></span>
                 </li>
             </ul>

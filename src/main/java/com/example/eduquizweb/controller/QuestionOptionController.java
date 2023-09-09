@@ -7,12 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 @Controller
 @RequestMapping("/option")
 @RequiredArgsConstructor
 public class QuestionOptionController {
-
     private final QuestionOptionService questionOptionService;
     private final QuestionService questionService;
 
@@ -29,7 +27,6 @@ public class QuestionOptionController {
             questionOption.setQuestion(question);
             questionOption.setCorrect(isCorrect);
             questionOptionService.save(questionOption);
-
             return "redirect:/option";
         } else {
             return "redirect:/error";

@@ -1,9 +1,9 @@
 package com.example.eduquizweb.controller;
+
 import com.example.eduquizcommon.entity.User;
 import com.example.eduquizcommon.entity.UserType;
 import com.example.eduquizcommon.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
-
-@Slf4j
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")

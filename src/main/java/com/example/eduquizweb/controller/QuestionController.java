@@ -1,5 +1,4 @@
 package com.example.eduquizweb.controller;
-
 import com.example.eduquizcommon.entity.Question;
 import com.example.eduquizcommon.entity.Type;
 import com.example.eduquizcommon.service.QuestionService;
@@ -8,10 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Arrays;
 import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/question")

@@ -12,12 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @RequiredArgsConstructor
 public class SpringSecurityConfig {
-
-
     private final UserDetailsService userDetailsService;
-
     private final PasswordEncoder passwordEncoder;
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
@@ -39,10 +35,8 @@ public class SpringSecurityConfig {
                 .logout()
                 .logoutSuccessUrl("/")
                 .permitAll();
-
         return httpSecurity.build();
     }
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
