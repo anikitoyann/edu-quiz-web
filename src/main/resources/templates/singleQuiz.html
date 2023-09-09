@@ -15,14 +15,15 @@
             <ul>
                 <li th:each="option : ${entry.value}">
                     <label>
-                        <input type="radio" th:if="${entry.key.type.SINGLE_SELECT}" th:name="'answers[' + ${entry.key.id} + '].questionOption.id'" th:value="${option.id}" />
+                        <input type="radio" th:if="${entry.key.type.SINGLE_SELECT}"
+                               th:name="'answers[' + ${entry.key.id} + '].questionOption.id'" th:value="${option.id}"/>
                     </label>
                     <span th:text="${option.title}"></span>
                 </li>
             </ul>
         </li>
     </ul>
-    <input type="submit" value="Submit Quiz" />
+    <input type="submit" value="Submit Quiz"/>
 </form>
 <a th:href="@{/quiz}">Back to Quiz List</a>
 </body>
